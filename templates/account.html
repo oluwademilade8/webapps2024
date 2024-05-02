@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% block title %}{{ block.super }}My Account{% endblock %}\
+{% load static %}
+{% block content %}
+<header>
+    <h1>My Account</h1>
+    <nav>
+        <a href="/">Home</a>
+    </nav>
+</header>
+<div class="container">
+    <aside class="sidebar" id="sidebar">
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'deposit' %}">Deposit Money</a></li>
+            <li><a href="{% url 'withdraw' %}">Withdraw Money</a></li>
+            <li><a href="{% url 'send_money' %}">Send Money</a></li>
+            <li><a href="{% url 'initiate_payment_request' %}">Request Money</a></li>
+            <li><a href="{% url 'view_requests' %}">View Request</a></li>
+            <li><a href="{% url 'transaction_history' %}">Transaction History</a></li>
+            <li><a href="{% url 'convert_currency' %}">Currency Conversion</a></li>
+
+        </ul>
+    </aside>
+    <main>
+        <section id="accountInfo">
+            <h2>Account Information</h2>
+            {% if user.is_authenticated %}
+            <p><strong>Name:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Balance:</strong> {{ user.currency }}{{ account.total_balance }}</p>
+            
+
+            {% else %}
+                <p>Unauthorized access. Please <a href="{% url 'login' %}">log in</a>.</p>
+            {% endif %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+            <footer>
+                <img src="{% static 'assets/paymentimg-unscreen.gif' %}" alt="">
+            </footer>
+        </section>
+    </main>
+</div>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #0a2c56;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        margin-right: 20px;
+    }
+
+    .container {
+        display: flex;
+    }
+
+    .sidebar {
+        width: 200px;
+        background-color: #0a2c56;
+        color: #fff;
+        padding: 20px;
+        transition: all 0.3s ease;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .sidebar h2 {
+        background-color: #e0b30c;
+        text-align: center;
+        color: #000;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar ul li {
+        padding: 1rem 0;
+    }
+
+    .sidebar ul li a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    main {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .transaction-summary {
+        margin-top: 20px;
+        overflow-x: auto;
+    }
+
+    .transaction-summary table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .transaction-summary th,
+    .transaction-summary td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .transaction-summary th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .transaction-summary tr:nth-child(even) {
+        background-color: #0a2c56;
+        color: #ddd;
+    }
+
+    .transaction-summary tr:hover {
+        background-color: #e0b30c;
+        color: #000;
+    }
+
+    .hamburger {
+        display: none;
+        background-color: transparent;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 10px;
+        position: absolute;
+        top: 6rem;
+        left: 20px;
+        z-index: 999;
+    }
+
+    @media screen and (max-width: 768px) {
+        .container {
+            flex-direction: column;
+        }
+
+        .sidebar {
+            display: none;
+            position: fixed;
+            top: 8rem;
+            left: 0;
+            bottom: 0;
+            width: 30%;
+            background-color: #0a2c56;
+            overflow-y: auto;
+            z-index: 998;
+            transition: 1s all !important;
+        }
+
+        .sidebar ul {
+            padding-top: 1rem;
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+
+        .hamburger {
+            display: block;
+            color: black;
+            background-color: #e0b30c;
+            padding: 0 1rem;
+        }
+    }
+</style>
+<script>
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("active");
+    }
+</script>
+{% endblock %}

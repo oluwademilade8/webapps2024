@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}{{ block.super }}Deposit Money{% endblock %}
+{% load static %}
+{% block content %}
+    <header>
+        <h1>Deposit Money</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="{% url 'account' %}">My Account</a>
+        </nav>
+    </header>
+    <main>
+        <section id="sendMoneyForm">
+            <h2>Enter Deposit Amount</h2>
+            <form method="post" action="{% url 'deposit' %}">
+                {% csrf_token %}
+                {% for field in form %}
+                    {{ field }}
+                    {% if field.errors %}
+                    <small class="text-danger">
+                        {% for error in field.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </small>
+                    {% endif %}
+                {% endfor %}
+                <button type="submit">Deposit</button>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </form>
+        </section>
+    </main>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #0a2c56;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        #sendMoneyForm {
+            background-color: #fff;
+            padding: 20px;
+            width: 300px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #0a2c56;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}

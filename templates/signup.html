@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block title %}{{ block.super }}Sign Up{% endblock %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <header>
+        <h1>Sign Up Here</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="{% url 'account' %}">My Account</a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <form action="{% url 'signup' %}" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}" >{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <small class="text-danger">
+                                {% for error in field.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit">Sign Up</button>
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </form>
+            <p class="text-center">Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+        </div>
+    </main>
+    <style>
+        main {
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */
+            height: 100vh;
+        }
+
+        header {
+            background-color: #0a2c56;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 400px;
+            margin-top: 1rem;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #0a2c56;
+        }
+        select,input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 2rem;
+        }
+      
+    select option {
+        padding: 10px 20px;
+        color: #0070ba;
+        background-color: #f9f9f9;
+        font-family: sans-serif;
+        font-size: 16px;
+    }
+    option:checked {
+        background-color: #0070ba;
+        color: #fff;
+    }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0a2c56;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .social-icons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .social-icons i {
+            font-size: 24px;
+            margin: 0 10px;
+            color: #333;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons i:hover {
+            color: #007bff;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+{% endblock %}

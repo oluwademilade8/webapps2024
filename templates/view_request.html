@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}{{ block.super }}View Payment Requests{% endblock %}
+{% load static %}
+{% block content %}
+    <header>
+        <h1>View Payment Requests</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="{% url 'account' %}">My Account</a>
+        </nav>
+    </header>
+    <ul>
+        <div class="container">
+            {% for message in messages %}
+                 <p>{{ message }}</p>
+            {% endfor %}
+            {% for payment_request in payment_requests %}
+    
+            <li>
+            <strong>{{ payment_request.requester }}</strong> requested <strong>${{ payment_request.amount }}</strong>, <strong>{{ payment_request.description }}</strong>
+            <form action="{% url 'accept_payment_request' payment_request.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Accept</button>
+            </form>
+            <form action="{% url 'decline_payment_request' payment_request.id %}" method="post">
+                {% csrf_token %}
+                <button class="reject" type="submit">Decline</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+        </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+    
+        header {
+            background-color: #0a2c56;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+    
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+    
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        .container h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+    
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px;
+        }
+    
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    
+        strong {
+            color: #007bff;
+        }
+    
+        form {
+            display: inline-block;
+        }
+    
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        .reject {
+            background-color: rgba(13, 66, 202, 0.193);
+        }
+    
+        .reject:hover {
+            background-color: rgb(17, 63, 230);
+        }
+    
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+        }
+    
+        .home-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}

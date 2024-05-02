@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+:root {
+  --primary-color: #1397d7;
+  --primary-color-dark: #24397c;
+  --text-dark: #475569;
+  --text-light: #64748b;
+  --extra-light: #e2e8f0;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.container {
+  max-width: 700px;
+  margin: 5rem auto 0;
+  padding: 3rem 5rem;
+  border: 2px solid var(--extra-light);
+  border-radius: 5px;
+}
+
+.content,
+form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.content {
+  margin-bottom: 5rem;
+}
+
+.logo {
+  width: 12rem;
+  margin: auto;
+}
+
+.input {
+  font-size: 1rem;
+  padding: 1rem;
+  outline: none;
+  border: 2px solid var(--text-light);
+  color: var(--text-light);
+  border-radius: 5px;
+}
+
+.next__btn,
+.signup__btn {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 1rem;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.next__btn {
+  color: #ffffff;
+  background-color: var(--primary-color);
+}
+
+.next__btn:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.signup__btn {
+  color: var(--text-dark);
+  background-color: var(--extra-light);
+}
+
+.signup__btn:hover {
+  color: #ffffff;
+  background-color: var(--text-light);
+}
+
+.divider {
+  text-align: center;
+  position: relative;
+}
+
+.divider span {
+  padding: 0 0.5rem;
+  font-size: 1.2rem;
+  color: var(--text-light);
+  background-color: #ffffff;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--extra-light);
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.country {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.country .flag {
+  width: 2rem;
+}
+
+.country i {
+  font-size: 1.5rem;
+  color: var(--text-light);
+}
+
+.language > span {
+  padding: 0 0.5rem;
+  color: var(--text-light);
+  border-right: 2px solid var(--extra-light);
+}
+
+.language span:first-child {
+  font-weight: 700;
+}
+
+.language span:last-child {
+  border: none;
+}
+
+@media screen and (width < 700px) {
+  .container {
+    margin: 2rem auto 0;
+    padding: 3rem 2rem;
+    border: none;
+  }
+}
